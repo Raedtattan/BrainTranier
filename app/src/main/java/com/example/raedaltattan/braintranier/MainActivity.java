@@ -1,6 +1,7 @@
 package com.example.raedaltattan.braintranier;
 
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
     Button button1;
     Button button2;
     Button button3;
+    ConstraintLayout gameLayout;
+
+
+    public  void playAgain (){
+
+    }
 
     public void generateQuastions(){
 
@@ -64,8 +71,27 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void start(View view){
+        gameLayout.setVisibility(view.VISIBLE);
+        timverTextView.setText("30s");
+        resultTextView.setText("");
+        pointTextView.setText("0/0");
+
 
         startButton.setVisibility(view.INVISIBLE);
+        generateQuastions();
+
+        new CountDownTimer(30100 , 1000){
+
+            @Override
+            public void onTick(long milliSeconds) {
+                timverTextView.setText(String.valueOf(milliSeconds / 1000 ));
+            }
+
+            @Override
+            public void onFinish() {
+                startButton.setVisibility(View.VISIBLE);
+            }
+        }.start();
     }
 
     public void chooseAnswer(View view)
@@ -97,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         resultTextView = (TextView)findViewById(R.id.resultTextView);
         pointTextView = (TextView) findViewById(R.id.pointTextView);
         timverTextView = (TextView) findViewById(R.id.timverTextView);
+        gameLayout = (ConstraintLayout) findViewById(R.id.gameLayout);
 
       generateQuastions();
 
